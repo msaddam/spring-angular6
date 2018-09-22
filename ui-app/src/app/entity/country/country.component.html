@@ -1,0 +1,107 @@
+<div class="generic-container">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><span class="lead">Country </span></div>
+    <div class="panel-body">
+      <div class="formcontainer">
+        <div class="alert alert-success" role="alert" *ngIf="successMessage">{{successMessage}}</div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">{{errorMessage}}</div>
+        <form name="myForm" (ngSubmit)="submit()" class="form-horizontal" #countryForm="ngForm">
+          <input type="hidden" [(ngModel)]="country.ctrId" name="ctrId" />
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="uname">Name</label>
+              <input type="text" [(ngModel)]="country.ctrName" name="ctrName" id="uname" class="form-control input-sm" placeholder="Enter country name" required ng-minlength="3"/>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="code">Country Code</label>
+              <input type="text" [(ngModel)]="country.ctrCode" name="ctrCode" id="code" class="form-control input-sm" placeholder="Enter country code" required ng-minlength="3"/>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="isoCode2">ISO Code 2</label>
+              <input type="text" [(ngModel)]="country.ctrIsoCode2" name="ctrIsoCode2" id="isoCode2" class="form-control input-sm" placeholder="Enter country ISO Code 2" required ng-minlength="2"/>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="isoCode3">ISO Code 3</label>
+              <input type="text" [(ngModel)]="country.ctrIsoCode3" name="ctrIsoCode3" id="isoCode3" class="form-control input-sm" placeholder="Enter country ISO Code 3" required ng-minlength="3"/>
+
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="timeZone">Time Zone</label>
+              <input type="text" [(ngModel)]="country.ctrTimeZone" name="ctrTimeZone" id="timeZone" class="form-control input-sm" placeholder="Enter country Time zone" required ng-minlength="3"/>
+
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="population">Population</label>
+              <input type="number" [(ngModel)]="country.ctrPopulation" name="ctrPopulation" id="population" class="form-control input-sm" placeholder="Enter country population"  pattern="onlyNumbers" required ng-minlength="3"/>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="sel1">Region</label>
+              <select [(ngModel)]="country.ctrRegion.rgnId" name="rgnId" class="form-control" id="sel1">
+                <option disabled>Select Country Region</option>
+                <option *ngFor="let region of regions" value="{{region.rgnId}}">{{region.rgnName}}</option>
+              </select>
+            </div>
+            <div class="col-md-4 btn-align">
+              <input type="submit"  value="{{!country.ctrId ? 'Add' : 'Update'}}" class="btn btn-primary btn-md col-md-12">
+            </div>
+            <div class=" col-md-4 btn-align">
+              <button type="button" (click)="resetCountryForm()" class="btn btn-warning btn-md col-md-12" ng-disabled="myForm.$pristine">Reset Form</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><span class="lead">List of Country </span></div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Country Code</th>
+            <th>ISO Code 2</th>
+            <th>ISO Code 3</th>
+            <th>Time Zone</th>
+            <th>Population</th>
+            <th>Region</th>
+            <th width="60"></th>
+            <th width="90"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let country of countrys">
+            <td>{{country.ctrId}}</td>
+            <td>{{country.ctrName}}</td>
+            <td>{{country.ctrCode}}</td>
+            <td>{{country.ctrIsoCode2}}</td>
+            <td>{{country.ctrIsoCode3}}</td>
+            <td>{{country.ctrTimeZone}}</td>
+            <td>{{country.ctrPopulation}}</td>
+            <td>{{country.ctrRegion.rgnName}}</td>
+            <!--<td><button type="button" (click)="editCountry(country.ctrId)" class="btn btn-success custom-width">Edit</button></td>-->
+            <td><button type="button" (click)="editCountryByObj(country)" class="btn btn-success custom-width">Edit</button></td>
+            <td><button type="button" (click)="removeCountry(country.ctrId)" class="btn btn-danger custom-width">Remove</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
